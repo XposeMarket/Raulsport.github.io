@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Linktree Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;400&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Montserrat', sans-serif;
+            min-height: 100vh;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: radial-gradient(ellipse at 50% 20%, #232946 0%, #0f2027 80%, #090a1a 100%);
+            position: relative;
+            overflow-x: hidden;
+        }
+        /* Animated star field */
+        #starfield {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 0;
+            pointer-events: none;
+        }
+        .container {
+            max-width: 500px;
+            width: 100%;
+            margin: 40px auto;
+            background: rgba(255, 255, 255, 0.07); /* More see-through glassmorphism */
+            border-radius: 32px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.25), 0 1.5px 8px 0 rgba(0,0,0,0.13);
+            padding: 38px 30px 30px 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            backdrop-filter: blur(14px) saturate(1.3);
+            border: 2px solid rgba(255,255,255,0.13);
+            z-index: 1;
+            /* Add a subtle colored border shadow */
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.25), 0 0 0 4px #1fa2ff33;
+        }
+        .avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid #fff;
+            margin-bottom: 16px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+        }
+        h1 {
+            margin: 0 0 8px 0;
+            font-size: 2.2rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+        p.bio {
+            margin: 0 0 24px 0;
+            font-size: 1.1rem;
+            color: #bdbdbd;
+            text-align: center;
+        }
+        .links {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+        .link {
+            display: flex;
+            align-items: center;
+            background: #333;
+            border-radius: 12px;
+            padding: 14px 20px;
+            text-decoration: none;
+            color: #fff;
+            font-size: 1.1rem;
+            font-weight: 500;
+            transition: background 0.2s, transform 0.2s;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+        .link:hover {
+            background: #444;
+            transform: translateY(-2px) scale(1.03);
+        }
+        .link-icon {
+            width: 28px;
+            height: 28px;
+            margin-right: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .projects {
+            margin-top: 36px;
+            width: 100%;
+        }
+        .project {
+            background: #232526;
+            border-radius: 14px;
+            margin-bottom: 24px;
+            padding: 18px 16px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+        }
+        .project-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+        .project-desc {
+            color: #bdbdbd;
+            font-size: 1rem;
+            margin-bottom: 10px;
+        }
+        .project-screenshot {
+            width: 100%;
+            max-width: 420px;
+            border-radius: 10px;
+            margin-bottom: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.13);
+        }
+        @media (max-width: 900px) {
+            .container {
+                max-width: 98vw;
+                padding: 12vw 2vw 8vw 2vw;
+                border-radius: 18px;
+            }
+            h1 {
+                font-size: 1.5rem;
+            }
+            .avatar {
+                width: 80px;
+                height: 80px;
+                margin-bottom: 10px;
+            }
+            .links {
+                gap: 12px;
+            }
+            .link {
+                font-size: 1rem;
+                padding: 12px 10px;
+                border-radius: 9px;
+            }
+            .link-icon {
+                width: 22px;
+                height: 22px;
+                margin-right: 10px;
+            }
+            .projects {
+                margin-top: 24px;
+            }
+            .project {
+                padding: 12px 8px;
+                border-radius: 10px;
+            }
+            .project-title {
+                font-size: 1rem;
+            }
+            .project-screenshot {
+                max-width: 98vw;
+                border-radius: 7px;
+            }
+        }
+        @media (max-width: 480px) {
+            .container {
+                padding: 6vw 1vw 6vw 1vw;
+            }
+            h1 {
+                font-size: 1.1rem;
+            }
+            .avatar {
+                width: 56px;
+                height: 56px;
+            }
+            .link {
+                font-size: 0.95rem;
+                padding: 9px 4px;
+            }
+            .link-icon {
+                width: 18px;
+                height: 18px;
+                margin-right: 7px;
+            }
+            .project-screenshot {
+                max-width: 99vw;
+            }
+        }
+    </style>
+</head>
+<body>
+    <canvas id="starfield"></canvas>
+    <div class="container">
+        <img src="pfp.jpg" alt="Profile Photo" class="avatar">
+        <h1>Raul</h1>
+        <p class="bio">Hey! Check out my other socials and businesses below. Feel free to DM me with any questions.</p>
+        <div class="links">
+                        <a class="link" href="https://www.instagram.com/raulshome/" target="_blank">
+                                <span class="link-icon">
+                                    <img src="instagrampic.png" alt="Instagram" style="width:22px;height:22px;vertical-align:middle;border-radius:5px;">
+                                </span> @raulshome - Personal Page
+                        </a>
+                        <a class="link" href="https://www.instagram.com/E36Raul/" target="_blank">
+                                <span class="link-icon">
+                                    <img src="instagrampic.png" alt="Instagram" style="width:22px;height:22px;vertical-align:middle;border-radius:5px;">
+                                </span> @E36Raul
+                        </a>
+                          <a class="link" href="https://www.tiktok.com/@e36raul" target="_blank">
+                                <span class="link-icon">
+                                    <img src="tiktok.png" alt="tiktok" style="width:22px;height:22px;vertical-align:middle;border-radius:5px;">
+                                </span> @E36Raul
+                        </a>
+                        <a class="link" href="https://www.instagram.com/xposemarket/" target="_blank">
+                                <span class="link-icon">
+                                    <img src="instagrampic.png" alt="Instagram" style="width:22px;height:22px;vertical-align:middle;border-radius:5px;">
+                                </span> @xposemarket
+                        </a>
+            <a class="link" href="https://xposemarket.github.io/" target="_blank">
+                <span class="link-icon"><img src="ClearXlogo.png".png" alt="Instagram" style="width:22px;height:22px;vertical-align:middle;border-radius:5px;">
+</span> Marketing Page - Grow your business
+            </a>
+            <a class="link" href="https://www.xpose.management/" target="_blank">
+                <span class="link-icon"><img src="logo.png".png" alt="Instagram" style="width:22px;height:22px;vertical-align:middle;border-radius:5px;"></span> Xpose Management - Shop Management Program
+            </a>
+        </div>
+        <div class="projects">
+            <div class="project">
+                <img src="Xposemarket.png" alt="Project Screenshot" class="project-screenshot">
+                <div class="project-title">Xpose Market</div>
+                <div class="project-desc">Got a business? Looking to grow it? Make it easy with Xpose Market - We'll create and manage your websites, as well as run ads for your business without you lifting a finger</div>
+                <a class="link" href="https://xposemarket.github.io/" target="_blank">
+                    <span class="link-icon">🔗</span> Visit Project
+                </a>
+            </div>
+  <div class="project">
+                <img src="Xposemanagement.png" alt="Project Screenshot" class="project-screenshot">
+                <div class="project-title">Xpose Management</div>
+                <div class="project-desc">Run your automotive shop efficiently with Xpose Management - a comprehensive shop management program designed to streamline your operations. Everything from scheduling appointments, to finding and adding parts, creating and sending invoices, and even paying your own staff. Xpose Management makes it easy.</div>
+                <a class="link" href="https://www.xpose.management/" target="_blank">
+                    <span class="link-icon">🔗</span> Visit Project
+                </a>
+            </div>        
+        </div>
+          <div class="project">
+                <img src="NebulaX.png" alt="Project Screenshot" class="project-screenshot">
+                <div class="project-title">NebulaX (Coming Soon) </div>
+                <div class="project-desc">A Solana and gaming based trading site. Not just a platform - but an Ecosystem </div>
+                <a class="link" href="https://www.nebulax.exchange/" target="_blank">
+                    <span class="link-icon">🔗</span> Visit Project
+                </a>
+            </div>  
+    </div>
+</body>
+<script>
+// Animated star field background
+const canvas = document.getElementById('starfield');
+const ctx = canvas.getContext('2d');
+let stars = [];
+const STAR_COUNT = 120;
+function resize() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+}
+window.addEventListener('resize', resize);
+resize();
+function randomStar() {
+    return {
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        r: Math.random() * 1.2 + 0.3,
+        o: Math.random() * 0.5 + 0.5,
+        s: Math.random() * 0.2 + 0.05,
+        tw: Math.random() * Math.PI * 2
+    };
+}
+function createStars() {
+    stars = [];
+    for (let i = 0; i < STAR_COUNT; i++) {
+        stars.push(randomStar());
+    }
+}
+createStars();
+function animate() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    for (let star of stars) {
+        ctx.save();
+        ctx.globalAlpha = star.o * (0.7 + 0.3 * Math.sin(star.tw));
+        ctx.beginPath();
+        ctx.arc(star.x, star.y, star.r, 0, Math.PI * 2);
+        ctx.fillStyle = '#fff';
+        ctx.shadowColor = '#fff';
+        ctx.shadowBlur = 8;
+        ctx.fill();
+        ctx.restore();
+        star.tw += star.s * 0.08;
+        // Twinkle
+        if (Math.random() < 0.002) {
+            Object.assign(star, randomStar());
+        }
+    }
+    requestAnimationFrame(animate);
+}
+animate();
+</script>
+</html>
